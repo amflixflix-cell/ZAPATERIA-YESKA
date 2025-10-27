@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ZAPATERIA YESKA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/yeska.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+</head>
+
+<body>
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="yeska_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:auroraruiz2003@gmail.com">auroraruiz2003@gmail.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:993-213-5881">993-213-5881</a>
+                </div>
+                <div>
+                    <a class="text-light" href="https://fb.com/" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+                <img class="img-fluid" src="./assets/img/favicon.ico" alt="Logo Zapateria Yeska">
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#yeska_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between"
+                id="yeska_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">INICIO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">ACERCA DE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="shop.html">PRODUCTOS</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal Search -->
+    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <button type="submit" class="input-group-text bg-success text-light">
+                        <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-3">
+                <h1 class="h2 pb-4">CALZADOS</h1>
+                <ul class="list-unstyled templatemo-accordion"></ul>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-inline shop-top-menu pb-3 pt-1"></ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Product Card Example -->
+                   <div class="row">
+    <!-- Producto 1 -->
+    <div class="col-md-4">
+        <div class="card mb-4 product-wap rounded-0">
+            <div class="card rounded-0">
+                <img class="card-img rounded-0 img-fluid" src="assets/img/shop_01.jpg" alt="Mocasin Ejecutivo">
+            </div>
+            <div class="card-body text-center">
+                <a class="h3 text-decoration-none">MOCASINES EJECUTIVOS</a>
+                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0 mt-2">
+                    <li class="pt-2">
+                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                    </li>
+                </ul>
+                <p class="text-center mb-0">$1,400 – $1,700 MXN</p>
+                <a href="formulario.html" class="btn mt-2" style="background-color:#DAA520; color:#ffffff; font-weight:900;">Comprar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Producto 2 -->
+    <div class="col-md-4">
+        <div class="card mb-4 product-wap rounded-0">
+            <div class="card rounded-0">
+                <img class="card-img rounded-0 img-fluid" src="assets/img/shop_02.jpg" alt="Botines de Vestir">
+            </div>
+            <div class="card-body text-center">
+                <a class="h3 text-decoration-none">BOTINES DE VESTIR</a>
+                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0 mt-2">
+                    <li class="pt-2">
+                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                    </li>
+                </ul>
+                <p class="text-center mb-0">$1,800 – $2,100 MXN</p>
+                <a href="formulario.html" class="btn mt-2" style="background-color:#DAA520; color:#ffffff; font-weight:900;">Comprar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Producto 3 -->
+    <div class="col-md-4">
+        <div class="card mb-4 product-wap rounded-0">
+            <div class="card rounded-0">
+                <img class="card-img rounded-0 img-fluid" src="assets/img/shop_03.jpg" alt="Sandalias Médicas">
+            </div>
+            <div class="card-body text-center">
+                <a class="h3 text-decoration-none">SANDALIAS MÉDICAS</a>
+                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0 mt-2">
+                    <li class="pt-2">
+                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                    </li>
+                </ul>
+                <p class="text-center mb-0">$900 – $1,200 MXN</p>
+                <a href="formulario.html" class="btn mt-2" style="background-color:#DAA520; color:#ffffff; font-weight:900;">Comprar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Producto 4 -->
+    <div class="col-md-4">
+        <div class="card mb-4 product-wap rounded-0">
+            <div class="card rounded-0">
+                <img class="card-img rounded-0 img-fluid" src="assets/img/shop_04.jpg" alt="Tenis Ortopédicos">
+            </div>
+            <div class="card-body text-center">
+                <a class="h3 text-decoration-none">TENIS ORTOPÉDICOS</a>
+                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0 mt-2">
+                    <li class="pt-2">
+                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                    </li>
+                </ul>
+                <p class="text-center mb-0">$1,200 – $1,450 MXN</p>
+                <a href="formulario.html" class="btn mt-2" style="background-color:#DAA520; color:#ffffff; font-weight:900;">Comprar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Producto 5 -->
+    <div class="col-md-4">
+        <div class="card mb-4 product-wap rounded-0">
+            <div class="card rounded-0">
+                <img class="card-img rounded-0 img-fluid" src="assets/img/shop_05.jpg" alt="Botas de Seguridad">
+            </div>
+            <div class="card-body text-center">
+                <a class="h3 text-decoration-none">BOTAS DE SEGURIDAD</a>
+                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0 mt-2">
+                    <li class="pt-2">
+                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                    </li>
+                </ul>
+                <p class="text-center mb-0">$1,700 – $2,200 MXN</p>
+                <a href="formulario.html" class="btn mt-2" style="background-color:#DAA520; color:#ffffff; font-weight:900;">Comprar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Producto 6 -->
+    <div class="col-md-4">
+        <div class="card mb-4 product-wap rounded-0">
+            <div class="card rounded-0">
+                <img class="card-img rounded-0 img-fluid" src="assets/img/shop_06.jpg" alt="Zapatos Deportivos de Seguridad">
+            </div>
+            <div class="card-body text-center">
+                <a class="h3 text-decoration-none">TENIS DE SEDURIDAD</a>
+                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0 mt-2">
+                    <li class="pt-2">
+                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                    </li>
+                </ul>
+                <p class="text-center mb-0">$1,700 – $2,200 MXN</p>
+                <a href="formulario.html" class="btn mt-2" style="background-color:#DAA520; color:#ffffff; font-weight:900;">Comprar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Producto 7 -->
+    <div class="col-md-4">
+        <div class="card mb-4 product-wap rounded-0">
+            <div class="card rounded-0">
+                <img class="card-img rounded-0 img-fluid" src="assets/img/shop_07.jpg" alt="Botines Dieléctricos">
+            </div>
+            <div class="card-body text-center">
+                <a class="h3 text-decoration-none">BOTINES DIELÉCTRICOS</a>
+                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0 mt-2">
+                    <li class="pt-2">
+                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                    </li>
+                </ul>
+                <p class="text-center mb-0">$1,300 – $1,600 MXN</p>
+                <a href="formulario.html" class="btn mt-2" style="background-color:#DAA520; color:#ffffff; font-weight:900;">Comprar</a>
+            </div>
+        </div>
+    </div>
+</div>
+                </div>
+
+                <div class="row">
+                    <ul class="pagination pagination-lg justify-content-end"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Brands Carousel -->
+    <section class="bg-light py-5">
+        <div class="container my-4">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">MARCAS</h1>
+                    <p>Encuentra las mejores marcas para cada necesidad y estilo de tu vida.</p>
+                </div>
+            </div>
+            <div class="col-lg-9 m-auto templatemo-carousel">
+                <div class="row d-flex flex-row">
+                    <div class="col-1 align-self-center">
+                        <a class="h1" href="#multi-item-example" role="button" data-bs-slide="prev">
+                            <i class="text-light fas fa-chevron-left"></i>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <div class="carousel slide carousel-multi-item pt-2 pt-md-0" id="multi-item-example" data-bs-ride="carousel">
+                            <div class="carousel-inner product-links-wap" role="listbox">
+                                <div class="carousel-item active">
+                                    <div class="row">
+                                        <div class="col-3 p-md-5"><a href="#"><img class="img-fluid brand-img" src="assets/img/brand_01.png" alt="Brand 1"></a></div>
+                                        <div class="col-3 p-md-5"><a href="#"><img class="img-fluid brand-img" src="assets/img/brand_02.png" alt="Brand 2"></a></div>
+                                        <div class="col-3 p-md-5"><a href="#"><img class="img-fluid brand-img" src="assets/img/brand_03.png" alt="Brand 3"></a></div>
+                                        <div class="col-3 p-md-5"><a href="#"><img class="img-fluid brand-img" src="assets/img/brand_04.png" alt="Brand 4"></a></div>
+                                    </div>
+                                </div>
+                                <!-- Repetir slides según necesites -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-1 align-self-center">
+                        <a class="h1" href="#multi-item-example" role="button" data-bs-slide="next">
+                            <i class="text-light fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark" id="yeska_footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">ZAPATERIA YESKA</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><i class="fas fa-map-marker-alt fa-fw"></i> Calle Gaviotas Sur 337, Villahermosa, Tab.</li>
+                        <li><i class="fa fa-phone fa-fw"></i> <a class="text-decoration-none" href="tel:993-213-5881">993-213-5881</a></li>
+                        <li><i class="fa fa-envelope fa-fw"></i> <a class="text-decoration-none" href="mailto:auroraruiz2003@gmail.com">auroraruiz2003@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row text-light mb-4">
+                <div class="col-12 mb-3">
+                    <div class="w-100 my-3 border-top border-light"></div>
+                </div>
+                <div class="col-auto me-auto">
+                    <ul class="list-inline text-left footer-icons">
+                        <li class="list-inline-item border border-light rounded-circle text-center"><a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a></li>
+                        <li class="list-inline-item border border-light rounded-circle text-center"><a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a></li>
+                        <li class="list-inline-item border border-light rounded-circle text-center"><a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a></li>
+                        <li class="list-inline-item border border-light rounded-circle text-center"><a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100 bg-black py-3">
+            <div class="container">
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <p class="text-left text-light">Villahermosa, Tab. </p>
+                        <p class="text-left text-light"> Yesenia Contreras Rabelo y Kathia Aurora Mondragón Ruiz</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery-1.11.0.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/templatemo.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+</body>
+
+</html>

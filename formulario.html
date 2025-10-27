@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario de Pago</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333333;
+    }
+
+    .input-group label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333333;
+    }
+
+    .input-group input[type="text"],
+    .input-group input[type="tel"],
+    .input-group input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    .expiry-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .expiry-row input {
+      flex: 1;
+    }
+
+    .sep {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .form-txt {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    .form-txt a {
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-group a,
+    .btn-group input[type="submit"] {
+      flex: 1;
+      padding: 12px 0;
+      border-radius: 5px;
+      font-weight: 900;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background-color: #D4AF37;
+      color: #ffffff;
+      transition: background 0.3s;
+    }
+
+    .btn-group a:hover,
+    .btn-group input[type="submit"]:hover {
+      background-color: #bfa334;
+    }
+
+    #mensaje-exito {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #d4edda;
+      border-radius: 10px;
+      border: 1px solid #c3e6cb;
+      text-align: center;
+      display: none;
+    }
+
+    #mensaje-exito h2 {
+      color: #155724;
+      margin-bottom: 15px;
+    }
+
+    .resumen p {
+      margin: 5px 0;
+    }
+
+    .delivery-options {
+      display: flex;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .delivery-details input {
+      margin-top: 5px;
+    }
+
+    .disabled {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+<form id="compraForm" autocomplete="off" novalidate>
+  <h2>Pago con tarjeta</h2>
+  <div class="input-group">
+    <label for="name">Nombre del titular</label>
+    <input type="text" name="name" id="name" placeholder="Nombre completo" required>
+
+    <label for="phone">Número de teléfono</label>
+    <input type="tel" inputmode="numeric" name="phone" id="phone" placeholder="5512345678" maxlength="10" required>
+
+    <label for="card-number">Número de tarjeta</label>
+    <input type="text" inputmode="numeric" name="card-number" id="card-number" placeholder="XXXX XXXX XXXX XXXX" required>
+
+    <label>Fecha de vencimiento</label>
+    <div class="expiry-row">
+      <input type="text" id="expiry-month" name="expiry-month" placeholder="MM" maxlength="2" inputmode="numeric" required>
+      <span class="sep">/</span>
+      <input type="text" id="expiry-year" name="expiry-year" placeholder="AAAA" maxlength="4" inputmode="numeric" required>
+      <input type="text" id="cvv" name="cvv" placeholder="CVV" maxlength="3" inputmode="numeric" required>
+    </div>
+
+    <!-- Opciones de entrega -->
+    <label>Opciones de entrega</label>
+    <div class="delivery-options">
+      <label><input type="radio" name="delivery" value="store" checked> Recibir en tienda</label>
+      <label><input type="radio" name="delivery" value="home"> Recibir a domicilio</label>
+    </div>
+
+    <!-- Detalles de entrega a domicilio -->
+    <div class="delivery-details">
+      <label for="address">Dirección</label>
+      <input type="text" name="address" id="address" placeholder="Calle, número, colonia, ciudad" disabled required>
+      <label for="email">Correo electrónico</label>
+      <input type="email" name="email" id="email" placeholder="correo@ejemplo.com" disabled required>
+    </div>
+
+    <div class="btn-group">
+      <a href="shop.html">Regresar</a>
+      <input type="submit" value="Pagar">
+    </div>
+  </div>
+</form>
+
+<div id="mensaje-exito">
+  <h2>✅ Compra realizada con éxito</h2>
+  <div id="resumen-datos" class="resumen"></div>
+  <p>Gracias por tu compra. Nos pondremos en contacto contigo pronto.</p>
+  <p id="redir-msg">Serás redirigido a la página principal...</p>
+</div>
+
+<script>
+  function sanitizeDigitsOnly(value) { return String(value).replace(/\D/g, ''); }
+  function sanitizeCardNumber(value) { return sanitizeDigitsOnly(value).slice(0, 19); }
+  function maskCardNumber(num) { const clean = sanitizeCardNumber(num); if (clean.length <= 4) return clean; const last4 = clean.slice(-4); return '**** **** **** ' + last4; }
+  function escapeHtml(text) { return String(text).replace(/[&<>"'`=\/]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','/':'&#x2F;','`':'&#x60;','=':'&#x3D;'}[s])); }
+  function pad2(num){ return String(num).padStart(2,'0'); }
+  function keepDigitsOnly(el,maxLen){ el.addEventListener('input',function(){ this.value=this.value.replace(/\D/g,'').slice(0,maxLen||999); }); }
+
+  keepDigitsOnly(document.getElementById('expiry-month'),2);
+  keepDigitsOnly(document.getElementById('expiry-year'),4);
+  keepDigitsOnly(document.getElementById('cvv'),3);
+  keepDigitsOnly(document.getElementById('phone'),10);
+
+  const cardInput=document.getElementById('card-number');
+  cardInput.addEventListener('input',function(){ const digits=this.value.replace(/\D/g,'').slice(0,16); this.value=digits.replace(/(.{4})/g,'$1 ').trim(); });
+
+  const deliveryRadios = document.getElementsByName('delivery');
+  const addressField = document.getElementById('address');
+  const emailField = document.getElementById('email');
+
+  deliveryRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      if(this.value === 'home') {
+        addressField.disabled = false;
+        emailField.disabled = false;
+        addressField.classList.remove('disabled');
+        emailField.classList.remove('disabled');
+      } else {
+        addressField.disabled = true;
+        emailField.disabled = true;
+        addressField.value = '';
+        emailField.value = '';
+        addressField.classList.add('disabled');
+        emailField.classList.add('disabled');
+      }
+    });
+  });
+
+  document.getElementById('compraForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const nombre=document.getElementById('name').value.trim();
+    const telefono=sanitizeDigitsOnly(document.getElementById('phone').value);
+    const tarjetaRaw=document.getElementById('card-number').value;
+    const tarjeta=sanitizeCardNumber(tarjetaRaw);
+    const mes=document.getElementById('expiry-month').value.trim();
+    const anio=document.getElementById('expiry-year').value.trim();
+    const cvv=document.getElementById('cvv').value.trim();
+    const delivery = document.querySelector('input[name="delivery"]:checked').value;
+    const address = document.getElementById('address').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if(!nombre){ alert('Ingresa el nombre del titular.'); return; }
+    if(telefono.length !== 10){ alert('Ingresa un teléfono válido de 10 dígitos.'); return; }
+    if(!(tarjeta.length>=13 && tarjeta.length<=19)){ alert('Ingresa un número de tarjeta válido (solo dígitos).'); return; }
+    if(!/^\d{3}$/.test(cvv)){ alert('Ingresa un CVV de 3 dígitos.'); return; }
+
+    const mesNum=parseInt(mes||'0',10);
+    const anioNum=parseInt(anio||'0',10);
+    const now=new Date();
+    const currentYear=now.getFullYear();
+    const currentMonth=now.getMonth()+1;
+
+    if(!/^\d{1,2}$/.test(mes)||mesNum<1||mesNum>12){ alert('Ingresa un mes válido (01 - 12).'); return; }
+    if(!/^\d{4}$/.test(anio)||anioNum<currentYear){ alert('Ingresa un año válido (AAAA) y que no sea menor al año actual.'); return; }
+    if(anioNum===currentYear && mesNum<currentMonth){ alert('La tarjeta ya venció. Selecciona una fecha válida.'); return; }
+
+    if(delivery === 'home') {
+      if(!address){ alert('Ingresa la dirección de envío.'); return; }
+      if(!email){ alert('Ingresa un correo electrónico válido.'); return; }
+    }
+
+    const resumenDiv=document.getElementById('resumen-datos');
+    resumenDiv.innerHTML=`<p><strong>Nombre:</strong> ${escapeHtml(nombre)}</p>
+    <p><strong>Teléfono:</strong> ${escapeHtml(telefono)}</p>
+    <p><strong>Tarjeta:</strong> ${escapeHtml(maskCardNumber(tarjeta))}</p>
+    <p><strong>Vencimiento:</strong> ${escapeHtml(pad2(mesNum)+'/'+anio)}</p>
+    <p><strong>Entrega:</strong> ${delivery==='store' ? 'Recoger en tienda' : 'Domicilio'}</p>
+    ${delivery==='home' ? `<p><strong>Dirección:</strong> ${escapeHtml(address)}</p><p><strong>Email:</strong> ${escapeHtml(email)}</p>` : ''}`;
+
+    this.style.display='none';
+    document.getElementById('mensaje-exito').style.display='block';
+
+    setTimeout(function(){ window.location.href='index.html'; },3000);
+  });
+
+  document.getElementById('expiry-month').addEventListener('input',function(){ if(this.value.length===2) document.getElementById('expiry-year').focus(); });
+</script>
+
+</body>
+</html>
