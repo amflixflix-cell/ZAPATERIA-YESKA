@@ -200,6 +200,7 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/templatemo.js"></script>
     <script src="assets/js/custom.js"></script>
+
 <!-- CHAT INTELIGENTE PARA ZAPATERÍA -->
 <style>
 #chat-btn{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:#DAA520;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;font-size:24px;}
@@ -257,9 +258,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const container = document.createElement('div'); container.className='small';
     container.innerHTML='Opciones rápidas: <button class="quick" data-cmd="Ver precios">Ver precios</button> <button class="quick" data-cmd="Ver horarios">Ver horarios</button> <button class="quick" data-cmd="Ver dirección">Ver dirección</button>';
     chatMessages.appendChild(container);
-    container.querySelectorAll('.quick').forEach(btn=>btn.addEventListener('click',()=>{
-      const cmd = btn.getAttribute('data-cmd'); addMsg('user',esc(cmd)); handleInput(cmd);
-    }));
+    container.querySelectorAll('.quick').forEach(btn=>btn.addEventListener('click',()=>{const cmd=btn.getAttribute('data-cmd'); addMsg('user',esc(cmd)); handleInput(cmd);}));
   }
 
   function mostrarProductos(categoria){
@@ -272,18 +271,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   function handleInput(q){
     q = q.trim(); if(!q) return;
-    addMsg('user',esc(q));
     const lc = q.toLowerCase();
+
+    // --- Revisar sí escrito manualmente ---
+    if(/\bsi|sí\b/i.test(lc)){
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Quiero hablar con un asistente personal')}`,'_blank');
+      addMsg('bot','Te estoy redirigiendo a WhatsApp en una nueva pestaña.');
+      return;
+    }
+
+    addMsg('user',esc(q));
 
     if(/hola|hi|buenas/.test(lc)){addMsg('bot','¡Hola! 👋 ¿Qué deseas saber sobre nuestros productos o servicios?'); quickButtons(); return;}
 
-    // --- NUEVO: Reconocer seguridad laboral ---
-    if(/\btrabajo\b|\bprotección\b|\bseguridad laboral\b|\bzapatos de seguridad\b/i.test(lc)){
-        mostrarProductos('seguridad');
-        quickButtons();
-        return;
-    }
-
+    if(/\btrabajo\b|\bprotección\b|\bseguridad laboral\b|\bzapatos de seguridad\b/i.test(lc)){mostrarProductos('seguridad'); quickButtons(); return;}
     if(/ejecutivo/.test(lc) && !estado.esperandoCategoria){mostrarProductos('ejecutivo'); quickButtons(); return;}
     if(/medic|médico/.test(lc) && !estado.esperandoCategoria){mostrarProductos('medico'); quickButtons(); return;}
     if(/seguridad/.test(lc) && !estado.esperandoCategoria){mostrarProductos('seguridad'); quickButtons(); return;}
@@ -309,33 +310,30 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if(/horario|hora|abre|cierra/.test(lc)){addMsg('bot','Nuestros horarios son: Lunes a Viernes 9:00-20:00, Sábado 9:00-18:00, Domingo cerrado'); return;}
     if(/\basistente\b|\bayuda personal\b|\bsoporte\b|\bcontacto\b/.test(lc)){
       addMsg('bot','¡Claro! Te paso con un ejecutivo en línea.');
-      setTimeout(()=>{window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Quiero hablar con un asistente personal')}`,'_blank'); addMsg('bot','Te estoy redirigiendo a WhatsApp en una nueva pestaña.');},100); return;
+      setTimeout(()=>{window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Quiero hablar con un asistente personal')}`,'_blank'); addMsg('bot','Te estoy redirigiendo a WhatsApp en una nueva pestaña.');},100);
+      return;
     }
 
     // No entendió
     addMsg('bot','No entendí 😅. ¿Quieres pasar con un ejecutivo en línea?');
-    const container = document.createElement('div'); container.className='small';
+    const container=document.createElement('div'); container.className='small';
     container.innerHTML='<button class="quick" data-cmd="Sí">Sí</button> <button class="quick" data-cmd="No">No</button>';
     chatMessages.appendChild(container);
     container.querySelectorAll('.quick').forEach(btn=>btn.addEventListener('click',()=>{
-      const cmd = btn.getAttribute('data-cmd'); addMsg('user',esc(cmd));
+      const cmd=btn.getAttribute('data-cmd'); addMsg('user',esc(cmd));
       if(cmd==='Sí') window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Quiero hablar con un asistente personal')}`,'_blank');
       else addMsg('bot','¡Perfecto! Puedes seguir navegando.');
     }));
   }
 
-  chatBtn.addEventListener('click', ()=>{
-    chatOpen=!chatOpen; chatBox.style.display=chatOpen?'flex':'none';
-  });
-
-  sendBtn.addEventListener('click', ()=>{
-    handleInput(userInput.value); userInput.value='';
-  });
+  chatBtn.addEventListener('click', ()=>{chatOpen=!chatOpen; chatBox.style.display=chatOpen?'flex':'none';});
+  sendBtn.addEventListener('click', ()=>{handleInput(userInput.value); userInput.value='';});
   userInput.addEventListener('keypress', e=>{if(e.key==='Enter'){handleInput(userInput.value); userInput.value='';}});
   
   document.addEventListener('click', e=>{if(chatOpen && !chatBox.contains(e.target) && e.target!==chatBtn){chatOpen=false; chatBox.style.display='none';}});
 });
 </script>
+
 
 
 </body>
