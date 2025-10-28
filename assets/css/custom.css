@@ -1,3 +1,96 @@
 /*
 Custom Css
 */
+/* Chat Yeska - estilos */
+#chat-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #DAA520;
+  color: white;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 10000;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+#chat-box {
+  display: none;
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 340px;
+  max-width: calc(100% - 40px);
+  height: 480px;
+  max-height: 80vh;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  z-index: 9999;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+#chat-header {
+  background: #DAA520;
+  color: #fff;
+  padding: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+#chat-messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f9f9f9;
+}
+.message {
+  padding: 8px 12px;
+  border-radius: 12px;
+  max-width: 85%;
+  line-height: 1.3;
+}
+.bot-message { background: #f1f1f1; align-self: flex-start; color: #111; }
+.user-message { background: #DAA520; align-self: flex-end; color: white; }
+#chat-input-area {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid #eee;
+}
+#user-input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  outline: none;
+  background: #fff;
+}
+#send-btn {
+  background: #DAA520;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.bot-button {
+  display: inline-block;
+  background: #0078ff;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  margin-top:6px;
+  margin-right:6px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.bot-button.secondary { background: #555; }
+.small-note { font-size: 0.85rem; color:#666; margin-top:6px; }

@@ -200,6 +200,143 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/templatemo.js"></script>
     <script src="assets/js/custom.js"></script>
+<!-- CHAT INTELIGENTE PARA ZAPATERÍA -->
+<style>
+#chat-btn{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:#DAA520;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:9999;font-size:24px;}
+#chat-box{position:fixed;bottom:88px;right:20px;width:360px;max-width:calc(100% - 40px);height:520px;background:#fff;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.18);display:none;flex-direction:column;z-index:9998;overflow:hidden;}
+#chat-header{background:#DAA520;color:#fff;padding:12px;font-weight:700;text-align:center;}
+#chat-messages{flex:1;padding:12px;overflow:auto;background:#f8f8f8;display:flex;flex-direction:column;gap:8px;}
+.msg{max-width:85%;padding:8px 12px;border-radius:12px;line-height:1.3;}
+.bot{background:#fff;border:1px solid #e6e6e6;align-self:flex-start;color:#111;}
+.user{background:#DAA520;color:#fff;align-self:flex-end;}
+#chat-input{display:flex;padding:10px;border-top:1px solid #eee;gap:8px;}
+#user-input{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd;}
+.btn{background:#DAA520;color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer;}
+.quick{display:inline-block;background:#0078ff;color:#fff;padding:6px 8px;border-radius:6px;border:none;cursor:pointer;margin:4px 4px 0 0;}
+.small{font-size:0.85rem;color:#666;margin-top:6px;}
+</style>
+
+<div id="chat-btn">💬</div>
+<div id="chat-box">
+  <div id="chat-header">Asistente Virtual Yeska</div>
+  <div id="chat-messages"></div>
+  <div id="chat-input">
+    <input id="user-input" placeholder="Escribe tu mensaje..." />
+    <button id="send-btn" class="btn">Enviar</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  const WHATSAPP_NUMBER = '529932135881';
+  const chatBtn = document.getElementById('chat-btn');
+  const chatBox = document.getElementById('chat-box');
+  const chatMessages = document.getElementById('chat-messages');
+  const sendBtn = document.getElementById('send-btn');
+  const userInput = document.getElementById('user-input');
+  
+  const CATALOGO = [
+    {categoria:"ejecutivo", nombre:"Mocasin Ejecutivo", precio:"$1,400 – $1,700"},
+    {categoria:"ejecutivo", nombre:"Botines de Vestir", precio:"$1,800 – $2,100"},
+    {categoria:"ejecutivo", nombre:"Zapatos Oxford", precio:"$1,650 – $1,950"},
+    {categoria:"medico", nombre:"Tenis Ortopédicos", precio:"$1,200 – $1,450"},
+    {categoria:"medico", nombre:"Suecos Anatómicos", precio:"$850 – $1,100"},
+    {categoria:"medico", nombre:"Sandalias Médicas", precio:"$900 – $1,200"},
+    {categoria:"seguridad", nombre:"Zapatos de Seguridad Tipo Deportivo", precio:"$1,400 – $1,700"},
+    {categoria:"seguridad", nombre:"Botas de Seguridad con Casquillo de Acero", precio:"$1,700 – $2,200"},
+    {categoria:"seguridad", nombre:"Botines Dieléctricos", precio:"$900 – $1,200"}
+  ];
+
+  let chatOpen = false;
+  let estado = {esperandoGenero:false, esperandoCategoria:false, genero:'', categoria:''};
+
+  function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]);}
+  function addMsg(sender,text){const el=document.createElement('div'); el.className='msg '+(sender==='user'?'user':'bot'); el.innerHTML=text; chatMessages.appendChild(el); chatMessages.scrollTop=chatMessages.scrollHeight;}
+
+  function quickButtons(){
+    const container = document.createElement('div'); container.className='small';
+    container.innerHTML='Opciones rápidas: <button class="quick" data-cmd="Ver precios">Ver precios</button> <button class="quick" data-cmd="Ver horarios">Ver horarios</button> <button class="quick" data-cmd="Ver dirección">Ver dirección</button>';
+    chatMessages.appendChild(container);
+    container.querySelectorAll('.quick').forEach(btn=>btn.addEventListener('click',()=>{
+      const cmd = btn.getAttribute('data-cmd'); addMsg('user',esc(cmd)); handleInput(cmd);
+    }));
+  }
+
+  function mostrarProductos(categoria){
+    const productos = CATALOGO.filter(p=>p.categoria===categoria);
+    if(productos.length>0){
+      const html = productos.map(p=>`<strong>${p.nombre}</strong> — ${p.precio}`).join('<br>');
+      addMsg('bot','<strong>Productos encontrados:</strong><br>'+html);
+    } else addMsg('bot','No se encontraron productos en esa categoría.');
+  }
+
+  function handleInput(q){
+    q = q.trim(); if(!q) return;
+    addMsg('user',esc(q));
+    const lc = q.toLowerCase();
+
+    if(/hola|hi|buenas/.test(lc)){addMsg('bot','¡Hola! 👋 ¿Qué deseas saber sobre nuestros productos o servicios?'); quickButtons(); return;}
+
+    // --- NUEVO: Reconocer seguridad laboral ---
+    if(/\btrabajo\b|\bprotección\b|\bseguridad laboral\b|\bzapatos de seguridad\b/i.test(lc)){
+        mostrarProductos('seguridad');
+        quickButtons();
+        return;
+    }
+
+    if(/ejecutivo/.test(lc) && !estado.esperandoCategoria){mostrarProductos('ejecutivo'); quickButtons(); return;}
+    if(/medic|médico/.test(lc) && !estado.esperandoCategoria){mostrarProductos('medico'); quickButtons(); return;}
+    if(/seguridad/.test(lc) && !estado.esperandoCategoria){mostrarProductos('seguridad'); quickButtons(); return;}
+
+    if(estado.esperandoGenero){
+      if(/hombre|varon/.test(lc)) estado.genero='hombre';
+      else if(/mujer|dama/.test(lc)) estado.genero='mujer';
+      else {addMsg('bot','No entendí 😅. Por favor indica si es para hombre o mujer.'); return;}
+      estado.esperandoGenero=false; estado.esperandoCategoria=true;
+      addMsg('bot','Perfecto. ¿Qué tipo de zapatos deseas? Ejecutivo, Médico o Seguridad?'); return;
+    }
+
+    if(estado.esperandoCategoria){
+      if(/ejecutivo/.test(lc)) estado.categoria='ejecutivo';
+      else if(/medic|médico/.test(lc)) estado.categoria='medico';
+      else if(/seguridad/.test(lc)) estado.categoria='seguridad';
+      else {addMsg('bot','No entendí 😅. Por favor indica: Ejecutivo, Médico o Seguridad.'); return;}
+      estado.esperandoCategoria=false; mostrarProductos(estado.categoria); quickButtons(); return;
+    }
+
+    if(/zapatos|calzado|tienen/.test(lc)){estado.esperandoGenero=true; addMsg('bot','¿Para hombre o mujer?'); return;}
+    if(/direccion|ubicaci[oó]n|d[oó]nde/.test(lc)){addMsg('bot','<strong>Dirección:</strong> Calle Gaviotas Sur 337, Villahermosa, Tabasco'); return;}
+    if(/horario|hora|abre|cierra/.test(lc)){addMsg('bot','Nuestros horarios son: Lunes a Viernes 9:00-20:00, Sábado 9:00-18:00, Domingo cerrado'); return;}
+    if(/\basistente\b|\bayuda personal\b|\bsoporte\b|\bcontacto\b/.test(lc)){
+      addMsg('bot','¡Claro! Te paso con un ejecutivo en línea.');
+      setTimeout(()=>{window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Quiero hablar con un asistente personal')}`,'_blank'); addMsg('bot','Te estoy redirigiendo a WhatsApp en una nueva pestaña.');},100); return;
+    }
+
+    // No entendió
+    addMsg('bot','No entendí 😅. ¿Quieres pasar con un ejecutivo en línea?');
+    const container = document.createElement('div'); container.className='small';
+    container.innerHTML='<button class="quick" data-cmd="Sí">Sí</button> <button class="quick" data-cmd="No">No</button>';
+    chatMessages.appendChild(container);
+    container.querySelectorAll('.quick').forEach(btn=>btn.addEventListener('click',()=>{
+      const cmd = btn.getAttribute('data-cmd'); addMsg('user',esc(cmd));
+      if(cmd==='Sí') window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Quiero hablar con un asistente personal')}`,'_blank');
+      else addMsg('bot','¡Perfecto! Puedes seguir navegando.');
+    }));
+  }
+
+  chatBtn.addEventListener('click', ()=>{
+    chatOpen=!chatOpen; chatBox.style.display=chatOpen?'flex':'none';
+  });
+
+  sendBtn.addEventListener('click', ()=>{
+    handleInput(userInput.value); userInput.value='';
+  });
+  userInput.addEventListener('keypress', e=>{if(e.key==='Enter'){handleInput(userInput.value); userInput.value='';}});
+  
+  document.addEventListener('click', e=>{if(chatOpen && !chatBox.contains(e.target) && e.target!==chatBtn){chatOpen=false; chatBox.style.display='none';}});
+});
+</script>
+
 
 </body>
 
